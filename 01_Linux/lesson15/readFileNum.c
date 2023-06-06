@@ -99,7 +99,6 @@ int getFileNum(const char* path){
         if (ptr->d_type == DT_REG){
             total++;
         }
-        
     }
     
     close(dir);
