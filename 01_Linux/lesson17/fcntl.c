@@ -56,6 +56,12 @@ int main(int argc, char const *argv[]){
     //     return -1;
     // }
     char *str = "nihao";
+    //如果在同一个进程中连续写入，则不会覆盖前面的内容
+    //如果从新一个进程写，并且没有指定append，那么不会追加到文件的末尾
+    //而是会从文件开头直接替换文件的内容
+    write(fd2, str, strlen(str));
+    write(fd2, str, strlen(str));
+    write(fd2, str, strlen(str));
     write(fd2, str, strlen(str));
 
     close(fd2);

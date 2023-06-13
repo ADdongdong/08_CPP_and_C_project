@@ -17,6 +17,7 @@
 
 int main(int argc, char const *argv[])
 {
+    //8进制数字前面记得有0前缀
     int ret = mkdir("aaa", 0777);
     if (ret == -1){
         perror("mkdir");
