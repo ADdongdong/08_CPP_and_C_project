@@ -22,7 +22,7 @@ int main(int argc, char const *argv[])
     printf("fd1:%d fd2:%d\n", fd1, fd2);
 
     //使用dup2指向fd指向的文件，现在就可以用fd2来操作1.txt了
-    int fd3 = dup2(fd1, fd2);
+    int fd3 = dup2(fd1, fd2);//所以返回的fd3和fd2是一样的
 
     //使用fd2想1.txt写入数据
     char * str = "hello world";

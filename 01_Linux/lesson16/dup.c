@@ -14,7 +14,8 @@ int main(int argc, char const *argv[])
     }
 
     //首先用fd1保存fd
-    //那现在是连个文件描述符都指向a.txt了
+    //当新的文件描述符fd1指向文件a.txt的时候
+    //旧的文件描述符fd就没有指向了
     int fd1 = dup(fd);
     if (fd1 == -1){
         perror("dup");
