@@ -38,12 +38,12 @@ int main(int argc, char const *argv[])
                 continue;
             }else if(ret >0){
 
-                if (WIFEXITED(st)) {
+                if(WIFEXITED(st)) {
                     //是不是正常退出
                     printf("退出的状态码是： %d\n", WEXITSTATUS(st));
                 }
 
-                if (WIFSIGNALED(st)){
+                if(WIFSIGNALED(st)){
                     //是不是异常终止
                     printf("被%d号信号干掉了\n", WTERMSIG(st));
                 }
