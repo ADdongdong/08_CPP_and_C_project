@@ -24,22 +24,29 @@ int main(int argc, char const *argv[])
     }
 
     //3.通信，发送数据
-    char *data = "hello, I am client";
-    //给服务器发送数据
-    write(fd, data, strlen(data));
-    
-    char recvBuf[1024] = {0};
-    int len = read(fd, recvBuf, sizeof(recvBuf));
-    if (len == -1){
-        perror("read");
-        return -1;
-    } else if (len >0){
-        printf("recv server data: %s\n", recvBuf);
-    } else if (len == 0){
-        //表示客户端断开链接
-        printf("server closed...\n");
+    char recvBuf[1024] = "";
+    //创建字符串
+    char data[1024]= "";
+    while (1){
+        //清空原来数组中的信息
+        memset(data, 0, 1024);
+        //获取标准输入的数据到数组buf中
+        fgets(data, 1024, stdin);
+        //给服务器发送数据
+        write(fd, data, strlen(data));
+        
+        int len = read(fd, recvBuf, sizeof(recvBuf));
+        if (len == -1){
+            perror("read");
+            return -1;
+        } else if (len >0){
+            printf("recv server data: %s\n", recvBuf);
+            memset(recvBuf, 0, 1024);//接受到数据后，清楚接受缓存
+        } else if (len == 0){
+            //表示服务器端断开链接
+            printf("server closed...\n");
+        }
     }
-
     //关闭链接
     close(fd);
     
