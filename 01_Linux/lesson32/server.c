@@ -43,7 +43,7 @@ int main(int argc, char const *argv[])
     //输出客户端的信息
     char clientIP[16];
     inet_ntop(AF_INET, &clientaddr.sin_addr.s_addr, clientIP, sizeof(clientIP));
-    unsigned short clientPort = ntohs(clientaddr.sin_port);
+    unsigned short clientPort = ntohs(clientaddr.sin_port);//网络字节序转换为主机字节序
     printf("client ip is %s, port is %d\n", clientIP, clientPort);
 
     //5.和客户端进行通信
