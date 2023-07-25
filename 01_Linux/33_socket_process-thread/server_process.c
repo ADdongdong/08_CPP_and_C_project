@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <errno.h>
 #include <arpa/inet.h>
 #include <unistd.h>
 #include <stdlib.h>
@@ -50,6 +51,9 @@ int main(int argc, char const *argv[])
     saddr.sin_port = htons(9999);
     saddr.sin_addr.s_addr = INADDR_ANY;
 
+    int optval = 1;
+    setsockopt(lfd, SOL_SOCKET, SO_REUSEADDR, &optval, sizeof(optval));
+
     int ret = bind(lfd, (struct sockaddr *)&saddr, sizeof(saddr));
     if (ret == -1){
         perror("bind");
@@ -72,6 +76,9 @@ int main(int argc, char const *argv[])
         // 接受链接
         int cfd = accept(lfd, (struct sockaddr*)&cliaddr, &len);
         if (cfd == -1) {
+            if (errno == EINTR){
+                continue;
+            }
             perror("accept");
             return -1;
         }
@@ -88,8 +95,8 @@ int main(int argc, char const *argv[])
             printf("client ip is: %s, port is %d\n", cliIP, cliPort);
 
             //接受客户端发来的数据
-            char recvBuf[1024] = "";
             while (1) {
+                char recvBuf[1024] = "";
                 int len = read(cfd, &recvBuf, sizeof(recvBuf));
 
                 if (len == -1) {
@@ -98,7 +105,7 @@ int main(int argc, char const *argv[])
                 } else if (len > 0){
                     printf("recv client data : %s\n", recvBuf);
                 }else if (len == 0){
-                    printf("client closed ...");
+                    printf("client closed ...\n");
                     break;
                 }
 
