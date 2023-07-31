@@ -4,6 +4,9 @@
         "*.py": "python",
         "unistd.h": "c",
         "stdio.h": "c",
-        "stdlib.h": "c"
+        "stdlib.h": "c",
+        "types.h": "c",
+        "epoll.h": "c",
+        "inet.h": "c"
     }
 }
