@@ -27,9 +27,8 @@ int main(int argc, char const *argv[])
     int num = 0;
     while (1){
         char sendBuf[1024] = {0};
-        sprintf(sendBuf, "send data %d", num++);
-
-        //fgets(sendBuf, sizeof(snedBuf), stdin);
+        fgets(sendBuf, sizeof(sendBuf), stdin);
+        //sprintf(sendBuf, "send data %d", num++);
         write(fd, sendBuf, strlen(sendBuf) + 1);
         
         int len = read(fd, sendBuf, sizeof(sendBuf));
@@ -43,7 +42,7 @@ int main(int argc, char const *argv[])
             printf("server closed...\n");
         }
         //sleep(1);
-        //usleep(1000);
+        usleep(1000);
     }
     //关闭链接
     close(fd);
