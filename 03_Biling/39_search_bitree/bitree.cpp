@@ -50,34 +50,26 @@ BinTree* Find(BinTree* BST, int key){
 	}
 }
 
-//二叉搜索树的插入
-void Insert(BinTree* &BST){
-	cout << "请输入数据：" << endl;
-	int val;
-	cin >> val;
-	if (val == 0){
-		BST =  NULL;
-	}else{
-		if(BST == NULL){
+//创建二叉树/搜索二叉树插入结点
+void Insert(int val, BinTree* &BST){
+	if(BST == NULL){
 		BinTree* node = new BinTree;	
 		node->data = val;
 		node->left = NULL;
 		node->right = NULL;
 
 		BST = node;
-		} else {
-			if (val > BST->data){
-				//如果，要插入的这个数字大于当前结点，那就要插入到
-				//当前结点的右子树上
-				Insert(BST->right);
-			} else if(val < BST->data){
-				//如果，当前节点小于要插入的key
-				//那就要插入到当前结点的左子树
-				Insert(BST->left);
-			}
+	} else {
+		if (val > BST->data){
+			//如果，要插入的这个数字大于当前结点，那就要插入到
+			//当前结点的右子树上
+			Insert(val ,BST->right);
+		} else if(val < BST->data){
+			//如果，当前节点小于要插入的key
+			//那就要插入到当前结点的左子树
+			Insert(val, BST->left);
 		}
 	}
-	
 }
 
 //二叉搜索树的删除
@@ -125,11 +117,12 @@ int main(){
 	//插入数据
 	int val;
 
-	for(int i = 0; i < 10; i++)	{
-		cout << "请输入数据：" ;
+	for(int i = 1; i < 10; i++)	{
+		cout << "请输入数据：";
 		cin >> val;
-		T = Insert(val, T);
+		Insert(val, T);
 	}
+
 	cout << endl;
 	//中序遍历数据
 	mid_travaersal(T);
