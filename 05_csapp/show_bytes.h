@@ -18,6 +18,7 @@ void show_bytes(byte_pointer start, size_t len) {
 
 //使用16进制展示int变量
 void show_int(int x) {
+	// sizeof查看这个变量有几个Byte,因为，一般我们操作系统都是按字节byte寻址的
 	show_bytes((byte_pointer) &x, sizeof(int));
 }
 
